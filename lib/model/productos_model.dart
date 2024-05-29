@@ -1,34 +1,24 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import '../modelos/producto.dart';
 
 class ProductosModel extends ChangeNotifier {
   final FocusNode unfocusNode = FocusNode();
-
-  List<Producto> _productos = [
-    Producto(
-      nombre: 'Producto 1',
-      imagen: 'https://via.placeholder.com/150',
-      descripcion: 'Descripción del producto 1',
-    ),
-    Producto(
-      nombre: 'Producto 2',
-      imagen: 'https://via.placeholder.com/150',
-      descripcion: 'Descripción del producto 2',
-    ),
-    // Agrega más productos según sea necesario
-  ];
+  List<Producto> _productos = [];
 
   List<Producto> get productos => _productos;
 
-  void agregarProducto(Producto producto) {
-    _productos.add(producto);
-    notifyListeners();
-  }
-
-  void toggleFavorito(int index) {
-    _productos[index].favorito = !_productos[index].favorito;
-    notifyListeners();
+  Future<void> fetchProductos() async {
+    final response = await http.get(Uri.parse('http://192.168.0.14:9097/productos'));
+    if (response.statusCode == 200) {
+      List<dynamic> data = json.decode(response.body);
+      _productos = data.map((item) => Producto.fromJson(item)).toList();
+      notifyListeners();
+    } else {
+      throw Exception('Failed to load products');
+    }
   }
 
   @override

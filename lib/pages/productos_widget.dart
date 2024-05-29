@@ -13,6 +13,13 @@ class ProductosWidget extends StatefulWidget {
 
 class _ProductosWidgetState extends State<ProductosWidget> {
   @override
+  void initState() {
+    super.initState();
+    final productosModel = Provider.of<ProductosModel>(context, listen: false);
+    productosModel.fetchProductos();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var productosModel = Provider.of<ProductosModel>(context);
 
@@ -60,24 +67,26 @@ class _ProductosWidgetState extends State<ProductosWidget> {
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.all(14.0),
-                  child: GridView.builder(
-                    padding: EdgeInsets.zero,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10.0,
-                      mainAxisSpacing: 10.0,
-                      childAspectRatio: 0.78,
-                    ),
-                    scrollDirection: Axis.vertical,
-                    itemCount: productosModel.productos.length,
-                    itemBuilder: (context, index) {
-                      final producto = productosModel.productos[index];
-                      return TarjetaProductoWidget(
-                        key: Key('Key_$index'),
-                        producto: producto,
-                      );
-                    },
-                  ),
+                  child: productosModel.productos.isEmpty
+                      ? Center(child: CircularProgressIndicator())
+                      : GridView.builder(
+                          padding: EdgeInsets.zero,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 10.0,
+                            mainAxisSpacing: 10.0,
+                            childAspectRatio: 0.78,
+                          ),
+                          scrollDirection: Axis.vertical,
+                          itemCount: productosModel.productos.length,
+                          itemBuilder: (context, index) {
+                            final producto = productosModel.productos[index];
+                            return TarjetaProductoWidget(
+                              key: Key('Key_$index'),
+                              producto: producto,
+                            );
+                          },
+                        ),
                 ),
               ),
             ],
