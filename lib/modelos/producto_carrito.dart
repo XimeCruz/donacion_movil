@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class ProductoCarrito {
   final int id;
   final int cantidadSeleccionada;

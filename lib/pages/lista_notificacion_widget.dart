@@ -21,22 +21,32 @@ class _ListaNotificacionesWidgetState extends State<ListaNotificacionesWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Lista de Notificaciones'),
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
+
+    return GestureDetector(
+      child: Scaffold(
+        key: GlobalKey<ScaffoldState>(),
+        body: SafeArea(
+          top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  'Notificaciones',
-                  style: FlutterFlowTheme.of(context).bodyMedium.copyWith(
-                        color: FlutterFlowTheme.of(context).labelLarge,
-                      ),
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 32.0, 16.0, 16.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Notificaciones',
+                      style: FlutterFlowTheme.of(context).displaySmall.copyWith(
+                            fontFamily: 'Inter',
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                  ],
                 ),
               ),
               ListView.builder(
@@ -48,7 +58,7 @@ class _ListaNotificacionesWidgetState extends State<ListaNotificacionesWidget> {
                     notificacion: notificaciones[index],
                   );
                 },
-              ),
+               ),
             ],
           ),
         ),

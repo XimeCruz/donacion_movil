@@ -29,7 +29,6 @@ class _ProductosWidgetState extends State<ProductosWidget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: GlobalKey<ScaffoldState>(),
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,
           child: Column(
@@ -52,7 +51,8 @@ class _ProductosWidgetState extends State<ProductosWidget> {
                           ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 6.0, 0.0, 0.0),
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 6.0, 0.0, 0.0),
                       child: Text(
                         'Elige los productos que desees',
                         style: FlutterFlowTheme.of(context).bodyMedium.copyWith(
@@ -71,7 +71,8 @@ class _ProductosWidgetState extends State<ProductosWidget> {
                       ? Center(child: CircularProgressIndicator())
                       : GridView.builder(
                           padding: EdgeInsets.zero,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             crossAxisSpacing: 10.0,
                             mainAxisSpacing: 10.0,

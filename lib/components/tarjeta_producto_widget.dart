@@ -62,12 +62,12 @@ class _TarjetaProductoWidgetState extends State<TarjetaProductoWidget>
         );
       },
       child: Container(
-        height: 700.0,
+        height: 400.0,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
+          color: Colors.transparent,
           borderRadius: BorderRadius.circular(24.0),
           border: Border.all(
-            color: Colors.transparent,
+            color: const Color.fromARGB(0, 209, 108, 108),
             width: 1.0,
           ),
         ),
@@ -136,31 +136,32 @@ class _TarjetaProductoWidgetState extends State<TarjetaProductoWidget>
             Spacer(),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(12.0, 6.0, 12.0, 12.0),
-              child: FFButtonWidget(
+              child: ElevatedButton(
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => AgregarDonacionPopup(producto: widget.producto),
+                    builder: (context) =>
+                        AgregarDonacionPopup(producto: widget.producto),
                   );
                 },
-                text: 'Agregar a donación',
-                options: FFButtonOptions(
-                  width: MediaQuery.sizeOf(context).width * 1.0,
-                  height: 30.0,
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  iconPadding:
-                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  color: FlutterFlowTheme.of(context).primary,
-                  textStyle: TextStyle(
+                child: Text(
+                  'Agregar a donación',
+                  style: TextStyle(
+                    color: Colors.white, // Cambiar color de texto a blanco
                     fontWeight: FontWeight.w600,
+                    fontSize: 13.0,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: FlutterFlowTheme.of(context)
+                      .primary,
+                  padding:
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
                   elevation: 3.0,
-                  borderSide: BorderSide(
-                    color: Colors.transparent,
-                    width: 1.0,
-                  ),
-                  borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
             ),

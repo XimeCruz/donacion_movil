@@ -1,4 +1,5 @@
 import 'package:donacion/pages/list_producto_carrito.dart';
+import 'package:donacion/pages/olvide_contrasenia_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hive/hive.dart';
@@ -12,7 +13,7 @@ import 'package:donacion/model/productos_model.dart';
 
 import 'model/carrito_model.dart';
 import 'model/informacion_producto_model.dart';
-import 'pages/carrito_widget.dart';
+import 'pages/main_widget.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -42,6 +43,8 @@ class MyApp extends StatelessWidget {
           '/inicio-sesion' : (context) => InicioSesionWidget(),
           '/ver-productos' : (context) => ProductosWidget(),
           '/carrito': (context) => ListaProductosDonacionWidget(),
+          '/main': (context) => MainScreen(),
+          '/olvido-contrasenia': (context) => OlvidoContraseniaWidget(),
         },
       ),
     );

@@ -53,21 +53,25 @@ class NotificacionItemWidget extends StatelessWidget {
                       actions: [
                         TextButton(
                           onPressed: () => Navigator.pop(context),
-                          child: Text('Cerrar'),
+                          child: Text('Cerrar',
+                          style: TextStyle(
+                            color: const Color(0xFF4DB051)), ),
                         ),
                       ],
                     ),
                   );
                 },
-                child: Text('Ver detalles'),
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white, backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-                  textStyle: FlutterFlowTheme.of(context).bodyMedium,
-                  padding: const EdgeInsets.symmetric(vertical: 12.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+                child: Text('Ver detalles',
+                  style: TextStyle(
+                            color: Colors.white),),
+                  style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF4DB051), // Color verde
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        minimumSize: Size(
+                            double.infinity, 50), // Botón de ancho completo
                   ),
-                ),
               ),
             ],
           ),

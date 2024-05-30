@@ -41,16 +41,14 @@ class InformacionDonacionWidget extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pushNamed(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => ListaNotificacionesWidget(),
-                    ),
+                    '/main'
                   );
                 },
-                child: Text('Ver lista de notificaciones'),
+                child: Text('Realizar otro pedido de donacion'),
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white, backgroundColor: Colors.blue, // Color del texto
+                  foregroundColor: Colors.white, backgroundColor: Color(0xFF4DB051), // Color del texto
                   padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
                   textStyle: TextStyle(fontSize: 16.0),
                 ),
