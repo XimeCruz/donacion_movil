@@ -38,7 +38,7 @@ class Producto {
       fechaDeVencimiento: json['fechaDeVencimiento'],
       imagen: json['imagen'],
       donante: Donante.fromJson(json['donante']),
-      confirmado: json['confirmado'],
+      confirmado: json['verificado'],
       favorito: json['favorito'] ?? false, // Añadido para manejo de JSON
     );
   }

@@ -1,0 +1,78 @@
+import 'package:flutter/material.dart';
+
+import '../flutter_flow/flutter_flow_theme.dart';
+import '../modelos/notificacion.dart';
+
+class NotificacionItemWidget extends StatelessWidget {
+  final Notificacion notificacion;
+
+  const NotificacionItemWidget({Key? key, required this.notificacion}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: FlutterFlowTheme.of(context).secondaryBackground,
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    notificacion.titulo,
+                    style: FlutterFlowTheme.of(context).bodyMedium.copyWith(
+                          fontWeight: FontWeight.w500,
+                        ),
+                  ),
+                  Text(
+                    notificacion.fecha,
+                    style: FlutterFlowTheme.of(context).bodyMedium.copyWith(
+                          color: FlutterFlowTheme.of(context).alternate,
+                        ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: () {
+                  // Acción al presionar el botón
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text(notificacion.titulo),
+                      content: Text(notificacion.detalles),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: Text('Cerrar'),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                child: Text('Ver detalles'),
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white, backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+                  textStyle: FlutterFlowTheme.of(context).bodyMedium,
+                  padding: const EdgeInsets.symmetric(vertical: 12.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -40,4 +40,33 @@ class FlutterFlowTheme {
         fontSize: 16.0,
         color: primaryText,
       );
+
+  // Nuevos estilos
+  TextStyle get headline5 => TextStyle(
+        fontFamily: 'Inter',
+        fontSize: 24.0,
+        fontWeight: FontWeight.bold,
+        color: primaryText,
+      );
+
+  TextStyle get subtitle1 => TextStyle(
+        fontFamily: 'Inter',
+        fontSize: 20.0,
+        fontWeight: FontWeight.w500,
+        color: primaryText,
+      );
+
+  TextStyle get bodyText1 => TextStyle(
+        fontFamily: 'Inter',
+        fontSize: 16.0,
+        fontWeight: FontWeight.w400,
+        color: primaryText,
+      );
+
+  TextStyle get bodyText2 => TextStyle(
+        fontFamily: 'Inter',
+        fontSize: 16.0,
+        fontWeight: FontWeight.normal,
+        color: primaryText,
+      );
 }

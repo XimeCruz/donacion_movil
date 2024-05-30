@@ -1,10 +1,13 @@
+import 'package:donacion/components/agregar_donacion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../modelos/producto.dart';
+import '../pages/informacion_producto.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/services.dart';
+
 class TarjetaProductoWidget extends StatefulWidget {
   const TarjetaProductoWidget({
     super.key,
@@ -17,7 +20,8 @@ class TarjetaProductoWidget extends StatefulWidget {
   State<TarjetaProductoWidget> createState() => _TarjetaProductoWidgetState();
 }
 
-class _TarjetaProductoWidgetState extends State<TarjetaProductoWidget> with TickerProviderStateMixin {
+class _TarjetaProductoWidgetState extends State<TarjetaProductoWidget>
+    with TickerProviderStateMixin {
   final animationsMap = <String, AnimationInfo>{};
 
   @override
@@ -58,11 +62,12 @@ class _TarjetaProductoWidgetState extends State<TarjetaProductoWidget> with Tick
         );
       },
       child: Container(
+        height: 700.0,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
           borderRadius: BorderRadius.circular(24.0),
           border: Border.all(
-            color: FlutterFlowTheme.of(context).alternate,
+            color: Colors.transparent,
             width: 1.0,
           ),
         ),
@@ -70,12 +75,12 @@ class _TarjetaProductoWidgetState extends State<TarjetaProductoWidget> with Tick
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 150.0,
+              height: 120.0,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24.0),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: NetworkImage(widget.producto.imagen),
+                  image: AssetImage('assets${widget.producto.imagen}'),
                 ),
               ),
               child: Align(
@@ -88,9 +93,14 @@ class _TarjetaProductoWidgetState extends State<TarjetaProductoWidget> with Tick
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      setState(() {
-                        widget.producto.favorito = !widget.producto.favorito;
-                      });
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => InformacionPWidget(
+                            producto: widget.producto,
+                          ),
+                        ),
+                      );
                     },
                     child: Container(
                       width: 32.0,
@@ -101,19 +111,10 @@ class _TarjetaProductoWidgetState extends State<TarjetaProductoWidget> with Tick
                             alignment: AlignmentDirectional(1.0, -1.0),
                             child: Icon(
                               Icons.info_outlined,
-                              color: FlutterFlowTheme.of(context).secondaryText,
+                              color: Colors.white,
                               size: 32.0,
                             ),
                           ),
-                          if (widget.producto.favorito)
-                            Align(
-                              alignment: AlignmentDirectional(1.0, -1.0),
-                              child: Icon(
-                                Icons.favorite_rounded,
-                                color: Color(0xFFFF4E59),
-                                size: 32.0,
-                              ).animateOnPageLoad(animationsMap['iconOnPageLoadAnimation']!),
-                            ),
                         ],
                       ),
                     ),
@@ -127,20 +128,9 @@ class _TarjetaProductoWidgetState extends State<TarjetaProductoWidget> with Tick
                 widget.producto.nombre,
                 maxLines: 2,
                 style: FlutterFlowTheme.of(context).bodyMedium.copyWith(
-                  fontFamily: 'Inter',
-                  letterSpacing: 0.0,
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(12.0, 6.0, 12.0, 0.0),
-              child: Text(
-                widget.producto.descripcion,
-                maxLines: 2,
-                style: FlutterFlowTheme.of(context).bodySmall.copyWith(
-                  fontFamily: 'Inter',
-                  letterSpacing: 0.0,
-                ),
+                      fontFamily: 'Inter',
+                      letterSpacing: 0.0,
+                    ),
               ),
             ),
             Spacer(),
@@ -148,25 +138,30 @@ class _TarjetaProductoWidgetState extends State<TarjetaProductoWidget> with Tick
               padding: EdgeInsetsDirectional.fromSTEB(12.0, 6.0, 12.0, 12.0),
               child: FFButtonWidget(
                 onPressed: () {
-                  print('Button pressed ...');
+                  showDialog(
+                    context: context,
+                    builder: (context) => AgregarDonacionPopup(producto: widget.producto),
+                  );
                 },
                 text: 'Agregar a donación',
                 options: FFButtonOptions(
-                      width: MediaQuery.sizeOf(context).width * 1.0,
-                      height: 40.0,
-                      padding: EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 12.0),
-                      iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primary,
-                      textStyle: TextStyle(
-                        fontWeight: FontWeight.w600,
-                      ),
-                      elevation: 3.0,
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
+                  width: MediaQuery.sizeOf(context).width * 1.0,
+                  height: 30.0,
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  iconPadding:
+                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  color: FlutterFlowTheme.of(context).primary,
+                  textStyle: TextStyle(
+                    fontWeight: FontWeight.w600,
+                  ),
+                  elevation: 3.0,
+                  borderSide: BorderSide(
+                    color: Colors.transparent,
+                    width: 1.0,
+                  ),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
               ),
             ),
           ],
