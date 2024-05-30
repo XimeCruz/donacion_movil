@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 abstract class FlutterFlowModel<T extends StatefulWidget> extends ChangeNotifier {
   void initState(BuildContext context) {}
-  void dispose() {}
   void maybeDispose() {
     dispose();
   }

@@ -26,9 +26,4 @@ class DiapositivasModel extends FlutterFlowModel<DiapositivasWidget> {
     flechaAtrasModel = FlechaAtrasModel();
   }
 
-  @override
-  void dispose() {
-    unfocusNode.dispose();
-    flechaAtrasModel.dispose();
-  }
 }

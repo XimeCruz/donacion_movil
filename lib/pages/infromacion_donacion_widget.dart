@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../modelos/donacion.dart';
-import 'lista_notificacion_widget.dart';
 
 class InformacionDonacionWidget extends StatelessWidget {
   final Donacion donacion;

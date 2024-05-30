@@ -5,7 +5,6 @@ import '../flutter_flow/flutter_flow_animations.dart';
 import '../modelos/producto.dart';
 import '../pages/informacion_producto.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/services.dart';
 
 class TarjetaProductoWidget extends StatefulWidget {
