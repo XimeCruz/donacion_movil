@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:hive/hive.dart';
+import '../globals.dart' as globals;
 
 class InicioSesionModel with ChangeNotifier {
   final formKey = GlobalKey<FormState>();
@@ -14,6 +15,8 @@ class InicioSesionModel with ChangeNotifier {
   final passwordTextController = TextEditingController();
   final passwordFocusNode = FocusNode();
   bool passwordVisibility = false;
+
+  InicioSesionModel();
 
   // Validadores
   String? emailValidator(String? val) {
@@ -48,7 +51,7 @@ class InicioSesionModel with ChangeNotifier {
 
     print("email" + email + "pss" + password);
 
-    final url = Uri.parse('http://192.168.0.14:9097/prueba/usuario');
+    final url = Uri.parse('${globals.globalUrl}/prueba/usuario');
     final headers = {'Content-Type': 'application/json'};
     final body = '{"email": "$email", "contrasenia": "$password"}';
 
@@ -64,8 +67,10 @@ class InicioSesionModel with ChangeNotifier {
         var box = Hive.box('myBox');
         await box.put('user_id', id);
 
+
         // Manejar respuesta exitosa y navegar a la nueva pantalla
-        Navigator.pushNamed(context, '/ver-productos');
+        Navigator.pushNamed(context, '/main-volun');
+        //Navigator.pushNamed(context, '/main-beneficiario');
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error: ${response.body}')),

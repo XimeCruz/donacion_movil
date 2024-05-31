@@ -224,8 +224,8 @@ class InicioSesionWidget extends StatelessWidget {
                                   //   return;
                                   // }
                                   // Lógica para iniciar sesión
-                                  //model.iniciarSesion(context);
-                                  Navigator.pushNamed(context, '/main');
+                                  model.iniciarSesion(context);
+                                  //Navigator.pushNamed(context, '/main');
                                 },
                                 text: 'Iniciar Sesiòn',
                                 options: FFButtonOptions(

@@ -281,7 +281,7 @@ class _DiapositivasWidgetState extends State<DiapositivasWidget> with TickerProv
                                           Padding(
                                             padding: EdgeInsetsDirectional.fromSTEB(0.0, 48.0, 0.0, 0.0),
                                             child: Text(
-                                              '¡Bienvenido a F4E! Donde cada acción cuenta para construir una ciudad más limpia, sostenible y llena de generosidad. 🌽💚 ¡Colabora con nosotros en la donación de alimentos para un impacto positivo en nuestra comunidad! ',
+                                              '¡Bienvenido a F4E! Donde cada acción cuenta para construir una ciudad llena de generosidad. 🌽💚 ¡Colabora con nosotros en la donación de alimentos para un impacto positivo en nuestra comunidad! ',
                                               textAlign: TextAlign.center,
                                               style: FlutterFlowTheme.of(context).bodyMedium.copyWith(
                                                     fontFamily: 'Inter',

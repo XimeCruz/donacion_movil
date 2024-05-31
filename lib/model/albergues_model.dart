@@ -2,25 +2,24 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import '../modelos/producto.dart';
+import '../modelos/albergue.dart';
 
 import '../globals.dart' as globals;
 
-
-class ProductosModel extends ChangeNotifier {
+class AlberguesModel extends ChangeNotifier {
   final FocusNode unfocusNode = FocusNode();
-  List<Producto> _productos = [];
+  List<Albergue> _albergues = [];
 
-  List<Producto> get productos => _productos;
+  List<Albergue> get albergues => _albergues;
 
-  Future<void> fetchProductos() async {
-    final response = await http.get(Uri.parse('${globals.globalUrl}/productos'));
+  Future<void> fetchAlbergues() async {
+    final response = await http.get(Uri.parse('${globals.globalUrl}/albergues'));
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
-      _productos = data.map((item) => Producto.fromJson(item)).toList();
+      _albergues = data.map((item) => Albergue.fromJson(item)).toList();
       notifyListeners();
     } else {
-      throw Exception('Failed to load products');
+      throw Exception('Failed to load albergues');
     }
   }
 
