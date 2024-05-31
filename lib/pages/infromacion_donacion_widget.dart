@@ -26,10 +26,10 @@ class InformacionDonacionWidget extends StatelessWidget {
             Text('Email: ${donacion.albergue.email}'),
             Text('Capacidad: ${donacion.albergue.capacidad}'),
             Text('Descripción: ${donacion.albergue.descripcion}'),
-            SizedBox(height: 16),
-            Text('Beneficiario: ${donacion.beneficiario.nombre}'),
-            Text('Email: ${donacion.beneficiario.correoElectronico}'),
-            Text('Teléfono: ${donacion.beneficiario.telefono}'),
+            // SizedBox(height: 16),
+            // Text('Beneficiario: ${donacion.beneficiario.nombre}'),
+            // Text('Email: ${donacion.beneficiario.correoElectronico}'),
+            // Text('Teléfono: ${donacion.beneficiario.telefono}'),
             SizedBox(height: 16),
             Text('Aceptado: ${donacion.aceptado ? "Sí" : "No"}'),
             Text('Asignado: ${donacion.asignado ? "Sí" : "No"}'),
@@ -42,7 +42,7 @@ class InformacionDonacionWidget extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushNamed(
                     context,
-                    '/main'
+                    'main-beneficiario'
                   );
                 },
                 child: Text('Realizar otro pedido de donacion'),

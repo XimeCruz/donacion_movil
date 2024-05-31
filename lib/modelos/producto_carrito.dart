@@ -1,10 +1,10 @@
 class ProductoCarrito {
   final int id;
   final int cantidadSeleccionada;
-  final DateTime fechaDeAgregado;
+  final String fechaDeAgregado;
   final int productoId;
   final bool confirmado;
-  final int donacionId;
+  final int? donacionId;
   final int beneficiarioId;
 
   ProductoCarrito({
@@ -13,7 +13,19 @@ class ProductoCarrito {
     required this.fechaDeAgregado,
     required this.productoId,
     required this.confirmado,
-    required this.donacionId,
+    this.donacionId,
     required this.beneficiarioId,
   });
+
+  factory ProductoCarrito.fromJson(Map<String, dynamic> json) {
+    return ProductoCarrito(
+      id: json['id'],
+      cantidadSeleccionada: json['cantidadSeleccionada'],
+      fechaDeAgregado: json['fechaDeAgregado'],
+      productoId: json['productoId'],
+      confirmado: json['confirmado'],
+      donacionId: json['donacionId'],
+      beneficiarioId: json['beneficiarioId'],
+    );
+  }
 }

@@ -14,8 +14,8 @@ class ListaNotificacionesWidget extends StatefulWidget {
 
 class _ListaNotificacionesWidgetState extends State<ListaNotificacionesWidget> {
   final List<Notificacion> notificaciones = [
-    Notificacion(titulo: 'Notificación 1', fecha: '2023-05-30', detalles: 'Detalles de la notificación 1.'),
-    Notificacion(titulo: 'Notificación 2', fecha: '2023-05-29', detalles: 'Detalles de la notificación 2.'),
+    Notificacion(titulo: 'El albergue esperanza necesita de ti', fecha: '2023-05-30', detalles: 'Recoger productos del centro de operaciones'),
+    // Notificacion(titulo: 'Notificación 2', fecha: '2023-05-29', detalles: 'Detalles de la notificación 2.'),
     // Agrega más notificaciones según sea necesario
   ];
 

@@ -18,6 +18,19 @@ class Albergue {
     required this.capacidad,
     required this.descripcion,
   });
+
+  factory Albergue.fromJson(Map<String, dynamic> json) {
+    return Albergue(
+      id: json['id'],
+      nombre: json['nombre'],
+      direccion: json['direccion'],
+      telefono: json['telefono'],
+      email: json['email'],
+      imagen: json['imagen'],
+      capacidad: json['capacidad'],
+      descripcion: json['descripcion'],
+    );
+  }
 }
 
 class Beneficiario {
@@ -32,6 +45,15 @@ class Beneficiario {
     required this.correoElectronico,
     required this.telefono,
   });
+
+  factory Beneficiario.fromJson(Map<String, dynamic> json) {
+    return Beneficiario(
+      id: json['id'],
+      nombre: json['nombre'],
+      correoElectronico: json['correoElectronico'],
+      telefono: json['telefono'],
+    );
+  }
 }
 
 class DonacionResponse {
@@ -54,4 +76,17 @@ class DonacionResponse {
     this.entregado,
     this.recibido,
   });
+
+  factory DonacionResponse.fromJson(Map<String, dynamic> json) {
+    return DonacionResponse(
+      id: json['id'],
+      albergue: Albergue.fromJson(json['albergue']),
+      beneficiario: Beneficiario.fromJson(json['beneficiario']),
+      aceptado: json['aceptado'],
+      asignado: json['asignado'],
+      recojo: json['recojo'],
+      entregado: json['entregado'],
+      recibido: json['recibido'] ,
+    );
+  }
 }

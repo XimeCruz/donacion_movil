@@ -1,8 +1,8 @@
-import 'package:donacion/flutter_flow/flutter_flow_theme.dart';
-import 'package:donacion/model/carrito_model.dart';
-import 'package:donacion/modelos/producto_carrito.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
+import '../api_service.dart';
+import '../flutter_flow/flutter_flow_theme.dart';
 import '../modelos/producto.dart';
 
 class AgregarDonacionPopup extends StatefulWidget {
@@ -19,6 +19,10 @@ class _AgregarDonacionPopupState extends State<AgregarDonacionPopup> {
 
   @override
   Widget build(BuildContext context) {
+    final apiService = Provider.of<ApiService>(context);
+    final box = Hive.box('myBox');
+    final userId = box.get('user_id');
+
     return AlertDialog(
       title: Text('Agregar a Donación'),
       content: Column(
@@ -65,25 +69,34 @@ class _AgregarDonacionPopupState extends State<AgregarDonacionPopup> {
           onPressed: () => Navigator.pop(context),
           child: Text('Cancelar'),
           style: TextButton.styleFrom(
-              foregroundColor:
-                  FlutterFlowTheme().primary
-              ),
+            foregroundColor: FlutterFlowTheme().primary,
+          ),
         ),
         ElevatedButton(
-          onPressed: () {
-            final nuevoProductoCarrito = ProductoCarrito(
-              id: DateTime.now().millisecondsSinceEpoch,
-              cantidadSeleccionada: cantidad,
-              fechaDeAgregado: DateTime.now(),
-              productoId: widget.producto.id,
-              confirmado: false,
-              donacionId: 1,
-              beneficiarioId: 1,
-            );
-            Provider.of<CarritoModel>(context, listen: false)
-                .agregarProducto(nuevoProductoCarrito);
-            Navigator.pop(context);
-            Navigator.pushNamed(context, '/carrito');
+          onPressed: () async {
+            final data = {
+              "idProducto": widget.producto.id,
+              "cantidad": cantidad,
+              "idUsuario": userId,
+            };
+
+            try {
+              final nuevoProductoCarrito =
+                  await apiService.anadirProducto(data);
+              print(nuevoProductoCarrito);
+              // Provider.of<CarritoModel>(context, listen: false)
+              //     .agregarProducto(nuevoProductoCarrito as ProductoCarrito);
+              // final producto = await apiService.anadirProducto(data);
+              // Provider.of<CarritoModel>(context, listen: false)
+              //     .agregarProducto(producto);
+
+              Navigator.pop(context);
+              Navigator.pushNamed(context, '/carrito');
+            } catch (e) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Error al agregar producto: $e')),
+              );
+            }
           },
           child: Text('Agregar'),
           style: ElevatedButton.styleFrom(

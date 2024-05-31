@@ -1,6 +1,13 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import 'modelos/albergue.dart';
+import 'modelos/beneficiario.dart';
+import 'modelos/categoria.dart';
+import 'modelos/donacion.dart';
+import 'modelos/producto_carrito.dart';
+import 'modelos/usuario.dart';
+
 class ApiService {
   final String baseUrl;
 
@@ -107,205 +114,6 @@ class ApiService {
   }
 }
 
-// Modelos
-class Categoria {
-  final int id;
-  final String nombre;
-  final String descripcion;
-
-  Categoria({
-    required this.id,
-    required this.nombre,
-    required this.descripcion,
-  });
-
-  factory Categoria.fromJson(Map<String, dynamic> json) {
-    return Categoria(
-      id: json['id'],
-      nombre: json['nombre'],
-      descripcion: json['descripcion'],
-    );
-  }
-}
-
-class Usuario {
-  final String nombre;
-  final String email;
-  final String contrasenia;
-
-  Usuario({
-    required this.nombre,
-    required this.email,
-    required this.contrasenia,
-  });
-
-  factory Usuario.fromJson(Map<String, dynamic> json) {
-    return Usuario(
-      nombre: json['nombre'],
-      email: json['email'],
-      contrasenia: json['contrasenia'],
-    );
-  }
-}
-
-class ProductoCarrito {
-  final int id;
-  final int cantidadSeleccionada;
-  final String fechaDeAgregado;
-  final int productoId;
-  final bool confirmado;
-  final int? donacionId;
-  final int beneficiarioId;
-
-  ProductoCarrito({
-    required this.id,
-    required this.cantidadSeleccionada,
-    required this.fechaDeAgregado,
-    required this.productoId,
-    required this.confirmado,
-    this.donacionId,
-    required this.beneficiarioId,
-  });
-
-  factory ProductoCarrito.fromJson(Map<String, dynamic> json) {
-    return ProductoCarrito(
-      id: json['id'],
-      cantidadSeleccionada: json['cantidadSeleccionada'],
-      fechaDeAgregado: json['fechaDeAgregado'],
-      productoId: json['productoId'],
-      confirmado: json['confirmado'],
-      donacionId: json['donacionId'],
-      beneficiarioId: json['beneficiarioId'],
-    );
-  }
-}
-
-class Donacion {
-  final int id;
-  final Albergue? albergue;
-  final Beneficiario? beneficiario;
-  final dynamic voluntarioRecojo;
-  final bool? aceptado;
-  final bool? asignado;
-  final bool? recojo;
-  final bool? entregado;
-  final bool? recibido;
-
-  Donacion({
-    required this.id,
-    this.albergue,
-    this.beneficiario,
-    this.voluntarioRecojo,
-    this.aceptado,
-    this.asignado,
-    this.recojo,
-    this.entregado,
-    this.recibido,
-  });
-
-  factory Donacion.fromJson(Map<String, dynamic> json) {
-    return Donacion(
-      id: json['id'],
-      albergue: json['albergue'] != null ? Albergue.fromJson(json['albergue']) : null,
-      beneficiario: json['beneficiario'] != null ? Beneficiario.fromJson(json['beneficiario']) : null,
-      voluntarioRecojo: json['voluntarioRecojo'],
-      aceptado: json['aceptado'],
-      asignado: json['asignado'],
-      recojo: json['recojo'],
-      entregado: json['entregado'],
-      recibido: json['recibido'],
-    );
-  }
-}
-
-class Albergue {
-  final int id;
-  final String nombre;
-  final String direccion;
-  final int beneficiarioId;
-  final String telefono;
-  final String email;
-  final String imagen;
-  final double latitud;
-  final double longitud;
-  final int capacidad;
-  final String descripcion;
-
-  Albergue({
-    required this.id,
-    required this.nombre,
-    required this.direccion,
-    required this.beneficiarioId,
-    required this.telefono,
-    required this.email,
-    required this.imagen,
-    required this.latitud,
-    required this.longitud,
-    required this.capacidad,
-    required this.descripcion,
-  });
-
-  factory Albergue.fromJson(Map<String, dynamic> json) {
-    return Albergue(
-      id: json['id'],
-      nombre: json['nombre'],
-      direccion: json['direccion'],
-      beneficiarioId: json['beneficiarioId'],
-      telefono: json['telefono'],
-      email: json['email'],
-      imagen: json['imagen'],
-      latitud: json['latitud'],
-      longitud: json['longitud'],
-      capacidad: json['capacidad'],
-      descripcion: json['descripcion'],
-    );
-  }
-}
-
-class Beneficiario {
-  final int id;
-  final String nombre;
-  final String nombreUsuario;
-  final String correoElectronico;
-  final String telefono;
-  final String password;
-  final dynamic passwordValid;
-  final int activo;
-  final String fechaDeNacimiento;
-  final String? direccion;
-  final String rol;
-
-  Beneficiario({
-    required this.id,
-    required this.nombre,
-    required this.nombreUsuario,
-    required this.correoElectronico,
-    required this.telefono,
-    required this.password,
-    this.passwordValid,
-    required this.activo,
-    required this.fechaDeNacimiento,
-    this.direccion,
-    required this.rol,
-  });
-
-  factory Beneficiario.fromJson(Map<String, dynamic> json) {
-    return Beneficiario(
-      id: json['id'],
-      nombre: json['nombre'],
-      nombreUsuario: json['nombreUsuario'],
-      correoElectronico: json['correoElectronico'],
-      telefono: json['telefono'],
-      password: json['password'],
-      passwordValid: json['passwordValid'],
-      activo: json['activo'],
-      fechaDeNacimiento: json['fechaDeNacimiento'],
-      direccion: json['direccion'],
-      rol: json['rol'],
-    );
-  }
-}
-
 class DonacionInfo {
   final Albergue albergue;
   final Beneficiario beneficiario;
@@ -328,6 +136,7 @@ class DonacionInfo {
     );
   }
 }
+
 
 class Notificacion {
   final int id;

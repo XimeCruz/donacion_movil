@@ -1,7 +1,7 @@
 import 'package:donacion/pages/Informacion_albergue_widget.dart';
+import 'package:donacion/pages/donaciones_widget.dart';
 import 'package:flutter/material.dart';
 
-import 'donaciones_widget.dart';
 import 'lista_notificacion_widget.dart';
 import 'perfil_widget.dart';
 import 'productos_widget.dart';

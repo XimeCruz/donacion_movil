@@ -6,7 +6,8 @@ import '../modelos/notificacion.dart';
 class NotificacionItemWidget extends StatelessWidget {
   final Notificacion notificacion;
 
-  const NotificacionItemWidget({Key? key, required this.notificacion}) : super(key: key);
+  const NotificacionItemWidget({Key? key, required this.notificacion})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +34,6 @@ class NotificacionItemWidget extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                   ),
-                  Text(
-                    notificacion.fecha,
-                    style: FlutterFlowTheme.of(context).bodyMedium.copyWith(
-                          color: FlutterFlowTheme.of(context).alternate,
-                        ),
-                  ),
                 ],
               ),
               const SizedBox(height: 16.0),
@@ -49,29 +44,32 @@ class NotificacionItemWidget extends StatelessWidget {
                     context: context,
                     builder: (context) => AlertDialog(
                       title: Text(notificacion.titulo),
-                      content: Text(notificacion.detalles),
+                      content: Text(
+                          '${notificacion.detalles} ${notificacion.fecha}'),
                       actions: [
                         TextButton(
                           onPressed: () => Navigator.pop(context),
-                          child: Text('Cerrar',
-                          style: TextStyle(
-                            color: const Color(0xFF4DB051)), ),
+                          child: Text(
+                            'Aceptar',
+                            style: TextStyle(color: const Color(0xFF4DB051)),
+                          ),
                         ),
                       ],
                     ),
                   );
                 },
-                child: Text('Ver detalles',
-                  style: TextStyle(
-                            color: Colors.white),),
-                  style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF4DB051), // Color verde
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        minimumSize: Size(
-                            double.infinity, 50), // Botón de ancho completo
+                child: Text(
+                  'Ver detalles',
+                  style: TextStyle(color: Colors.white),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF4DB051), // Color verde
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
                   ),
+                  minimumSize:
+                      Size(double.infinity, 50), // Botón de ancho completo
+                ),
               ),
             ],
           ),

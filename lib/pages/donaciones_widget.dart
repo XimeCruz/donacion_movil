@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../components/donacion_item.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 
-
 import '../modelos/donacionResponse.dart';
 
 class DonacionesWidget extends StatefulWidget {
@@ -16,26 +15,26 @@ class DonacionesWidget extends StatefulWidget {
 class _DonacionesWidgetState extends State<DonacionesWidget> {
   final List<DonacionResponse> donaciones = [
     DonacionResponse(
-      id: 1,
+      id: 16,
       albergue: Albergue(
         id: 1,
-        nombre: 'Albergue Esperanza',
+        nombre: 'Albergue esperanza',
         direccion: 'Av. Peru',
         telefono: '2458963',
         email: 'albergueesperanza@gmail.com',
         capacidad: 500,
         descripcion:
             'Ubicado en el corazón de la ciudad, el Albergue Refugio Urbano ofrece un oasis de tranquilidad y comodidad en medio del bullicio urbano.',
-        imagen: '/images/casaorg.png'
+        imagen: '/images/a2.jpeg',
       ),
       beneficiario: Beneficiario(
-        id: 9,
-        nombre: 'Admin',
-        correoElectronico: 'Admin@gmail.com',
-        telefono: '3148918702',
+        id: 11,
+        nombre: 'Luisa Fernanda Morales',
+        correoElectronico: 'luisafernanda@mail.com',
+        telefono: '3216549870',
       ),
       aceptado: true,
-      asignado: false,
+      asignado: true,
       recojo: false,
       entregado: null,
       recibido: null,

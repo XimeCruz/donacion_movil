@@ -13,6 +13,7 @@ import 'package:donacion/pages/productos_widget.dart';
 import 'package:donacion/pages/splash_widget.dart';
 import 'package:donacion/model/productos_model.dart';
 
+import 'api_service.dart';
 import 'model/carrito_model.dart';
 import 'model/informacion_producto_model.dart';
 import 'globals.dart' as globals;
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => InformacionPModel()),
         ChangeNotifierProvider(create: (_) => CarritoModel()),
         ChangeNotifierProvider(create: (_) => AlberguesModel()),
+        Provider<ApiService>(create: (_) => ApiService(baseUrl: 'http://192.168.0.14:9097')),
       ],
       child: MaterialApp(
         title: 'Donacion Project',

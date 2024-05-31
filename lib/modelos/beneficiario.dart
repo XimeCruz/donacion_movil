@@ -9,7 +9,7 @@ class Beneficiario {
   final int activo;
   final String fechaDeNacimiento;
   final String? direccion;
-  final int rol;
+  final String rol;
 
   Beneficiario({
     required this.id,
