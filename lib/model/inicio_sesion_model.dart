@@ -69,8 +69,19 @@ class InicioSesionModel with ChangeNotifier {
 
 
         // Manejar respuesta exitosa y navegar a la nueva pantalla
-        Navigator.pushNamed(context, '/main-volun');
+        //Navigator.pushNamed(context, '/main-volun');
         //Navigator.pushNamed(context, '/main-beneficiario');
+
+        // Redirigir a diferentes rutas según el rol del usuario
+        if (tipoUsuario == 'BENEFICIARIO') {
+          Navigator.pushNamed(context, '/main-beneficiario');
+        } else if (tipoUsuario == 'VOLUNTARIO') {
+          Navigator.pushNamed(context, '/main-volun');
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Rol desconocido: $tipoUsuario')),
+          );
+        }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error: ${response.body}')),
