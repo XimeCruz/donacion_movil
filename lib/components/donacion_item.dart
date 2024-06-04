@@ -3,14 +3,14 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../modelos/donacionResponse.dart';
 
 class DonacionItemWidget extends StatelessWidget {
-  final Donacion donacion;
+  final DonacionResponse donacionResponse;
 
-  const DonacionItemWidget({Key? key, required this.donacion})
+  const DonacionItemWidget({Key? key, required this.donacionResponse})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    //final donacion = donacionResponse.donacion;
+    final donacion = donacionResponse.donacion;
     final albergue = donacion.albergue;
     //final beneficiario = donacion.beneficiario;
 
@@ -232,7 +232,9 @@ class DonacionItemWidget extends StatelessWidget {
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   Icon(
-                                    donacion.recojo ? Icons.check : Icons.close,
+                                    donacion.recojo
+                                        ? Icons.check
+                                        : Icons.close,
                                     color: donacion.recojo
                                         ? Colors.green
                                         : Colors.red,
@@ -280,8 +282,7 @@ class DonacionItemWidget extends StatelessWidget {
                           TextButton(
                             onPressed: () {
                               //usar endpoint de recibir conforme y mostrar el popo up de confirmacion
-                              Navigator.pushNamed(
-                                  context, '/main-beneficiario');
+                              Navigator.pushNamed(context, '/main-beneficiario');
                             },
                             child: Text(
                               'Recibi conforme',

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../components/donacion_item.dart';
+import '../components/donacion_disponible_item.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../modelos/donacionResponse.dart';
 import '../globals.dart' as globals;
@@ -96,7 +96,7 @@ class _DonacionesWidgetState extends State<DonacionesDisponiblesWidget> {
               child: ListView.builder(
                 itemCount: donaciones.length,
                 itemBuilder: (context, index) {
-                  return DonacionItemWidget(
+                  return DonacionDispoItemWidget(
                     donacion: donaciones[index],
                   );
                 },

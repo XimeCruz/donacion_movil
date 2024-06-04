@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../modelos/donacionResponse.dart';
 
-class DonacionItemWidget extends StatelessWidget {
-  final DonacionResponse donacionResponse;
+class DonacionDispoItemWidget extends StatelessWidget {
+  final Donacion donacion;
 
-  const DonacionItemWidget({Key? key, required this.donacionResponse})
+  const DonacionDispoItemWidget({Key? key, required this.donacion})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final donacion = donacionResponse.donacion;
     final albergue = donacion.albergue;
     //final beneficiario = donacion.beneficiario;
 
