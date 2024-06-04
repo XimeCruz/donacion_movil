@@ -1,99 +1,108 @@
 import 'package:flutter/material.dart';
-
+import 'package:hive/hive.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import '../components/donacion_item.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-
 import '../modelos/donacionResponse.dart';
+import '../globals.dart' as globals;
 
 class DonacionesWidget extends StatefulWidget {
-  const DonacionesWidget({Key? key}) : super(key: key);
+
+  final userId = Hive.box('myBox').get('user_id');
+
+  DonacionesWidget({Key? key}) : super(key: key);
 
   @override
   _DonacionesWidgetState createState() => _DonacionesWidgetState();
 }
 
 class _DonacionesWidgetState extends State<DonacionesWidget> {
-  final List<DonacionResponse> donaciones = [
-    DonacionResponse(
-      id: 16,
-      albergue: Albergue(
-        id: 1,
-        nombre: 'Albergue esperanza',
-        direccion: 'Av. Peru',
-        telefono: '2458963',
-        email: 'albergueesperanza@gmail.com',
-        capacidad: 500,
-        descripcion:
-            'Ubicado en el corazón de la ciudad, el Albergue Refugio Urbano ofrece un oasis de tranquilidad y comodidad en medio del bullicio urbano.',
-        imagen: '/images/a2.jpeg',
-      ),
-      beneficiario: Beneficiario(
-        id: 11,
-        nombre: 'Luisa Fernanda Morales',
-        correoElectronico: 'luisafernanda@mail.com',
-        telefono: '3216549870',
-      ),
-      aceptado: true,
-      asignado: true,
-      recojo: false,
-      entregado: null,
-      recibido: null,
-    ),
-    // Agrega más donaciones según sea necesario
-  ];
+  List<DonacionResponse> donaciones = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchDonaciones();
+  }
+
+  Future<void> fetchDonaciones() async {
+    try {
+      final response = await http.get(Uri.parse('${globals.globalUrl}/solicitud/lista-donacion-pedida/${widget.userId}'));
+
+      if (response.statusCode == 200) {
+        final List<dynamic> jsonData = json.decode(response.body);
+        setState(() {
+          donaciones = jsonData.map((json) => DonacionResponse.fromJson(json)).toList();
+          isLoading = false;
+        });
+      } else {
+        throw Exception('Failed to load donaciones');
+      }
+    } catch (e) {
+      print(e);
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Scaffold(
-        key: GlobalKey<ScaffoldState>(),
-        body: SafeArea(
-          top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16.0, 32.0, 16.0, 16.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Donaciones',
-                      style: FlutterFlowTheme.of(context).displaySmall.copyWith(
+    if (isLoading) {
+      return Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    return Scaffold(
+      key: GlobalKey<ScaffoldState>(),
+      body: SafeArea(
+        top: true,
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(16.0, 32.0, 16.0, 16.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Donaciones',
+                    style: FlutterFlowTheme.of(context).displaySmall.copyWith(
+                          fontFamily: 'Inter',
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 6.0, 0.0, 0.0),
+                    child: Text(
+                      'Lista de donaciones pedidas',
+                      style: FlutterFlowTheme.of(context).bodyMedium.copyWith(
                             fontFamily: 'Inter',
                             letterSpacing: 0.0,
-                            fontWeight: FontWeight.w600,
                           ),
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 6.0, 0.0, 0.0),
-                      child: Text(
-                        'Lista de donaciones pedidas',
-                        style: FlutterFlowTheme.of(context).bodyMedium.copyWith(
-                              fontFamily: 'Inter',
-                              letterSpacing: 0.0,
-                            ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+            ),
+            Expanded(
+              child: ListView.builder(
                 itemCount: donaciones.length,
                 itemBuilder: (context, index) {
                   return DonacionItemWidget(
-                    donacion: donaciones[index],
+                    donacionResponse: donaciones[index],
                   );
                 },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

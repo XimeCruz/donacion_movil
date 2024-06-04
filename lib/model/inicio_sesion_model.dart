@@ -57,7 +57,7 @@ class InicioSesionModel with ChangeNotifier {
 
     try {
       final response = await http.post(url, headers: headers, body: body);
-
+      print(response.statusCode);
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = json.decode(response.body);
         final int id = responseData['id'];
@@ -66,7 +66,6 @@ class InicioSesionModel with ChangeNotifier {
         print('rol: $tipoUsuario');
         var box = Hive.box('myBox');
         await box.put('user_id', id);
-
 
         // Manejar respuesta exitosa y navegar a la nueva pantalla
         //Navigator.pushNamed(context, '/main-volun');
@@ -83,9 +82,16 @@ class InicioSesionModel with ChangeNotifier {
           );
         }
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: ${response.body}')),
-        );
+        print(response.statusCode);
+        if(response.statusCode == 404){
+            ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Usuario no encontrado')),
+          );
+        }
+        
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text('Error: ${response.body}')),
+        // );
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(

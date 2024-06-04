@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../modelos/donacionResponse.dart';
 
 class DonacionItemWidget extends StatelessWidget {
-  final DonacionResponse donacion;
+  final DonacionResponse donacionResponse;
 
-  const DonacionItemWidget({Key? key, required this.donacion})
+  const DonacionItemWidget({Key? key, required this.donacionResponse})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final donacion = donacionResponse.donacion;
+    final albergue = donacion.albergue;
+    final beneficiario = donacion.beneficiario;
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       child: Container(
@@ -54,7 +57,7 @@ class DonacionItemWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '${donacion.albergue.nombre}',
+                    albergue.nombre,
                     style: FlutterFlowTheme.of(context).bodyText1,
                   ),
                   Row(
@@ -76,200 +79,204 @@ class DonacionItemWidget extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Acción al presionar el botón
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
                         title: Text('Detalles de la Donación'),
-                        content: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            //Text('ID Donación: ${donacion.id}'),
-                            Text(
-                              '${donacion.albergue.nombre}',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            Center(
-                              child: Image.asset(
-                                'assets${donacion.albergue.imagen}',
-                                height: 100.0,
+                        content: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                albergue.nombre,
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                            ),
-                            RichText(
-                              text: TextSpan(
+                              Center(
+                                child: Image.asset(
+                                  'assets${albergue.imagen}',
+                                  height: 100.0,
+                                ),
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: 'Dirección: ',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ),
+                                    TextSpan(
+                                      text: albergue.direccion,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.normal,
+                                          color: Colors.black),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: 'Teléfono: ',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ),
+                                    TextSpan(
+                                      text: albergue.telefono,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.normal,
+                                          color: Colors.black),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: 'Email: ',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ),
+                                    TextSpan(
+                                      text: albergue.email,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.normal,
+                                          color: Colors.black),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: 'Capacidad: ',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ),
+                                    TextSpan(
+                                      text: '${albergue.capacidad}',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.normal,
+                                          color: Colors.black),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: 'Descripcion: ',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ),
+                                    TextSpan(
+                                      text: albergue.descripcion,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.normal,
+                                          color: Colors.black),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Divider(),
+                              const SizedBox(height: 16.0),
+                              Row(
                                 children: [
-                                  TextSpan(
-                                    text: 'Dirección: ',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
+                                  Text(
+                                    'Aceptado: ',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                  TextSpan(
-                                    text: donacion.albergue.direccion,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.black),
+                                  Icon(
+                                    donacion.aceptado
+                                        ? Icons.check
+                                        : Icons.close,
+                                    color: donacion.aceptado
+                                        ? Colors.green
+                                        : Colors.red,
                                   ),
                                 ],
                               ),
-                            ),
-                            RichText(
-                              text: TextSpan(
+                              Row(
                                 children: [
-                                  TextSpan(
-                                    text: 'Teléfono: ',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
+                                  Text(
+                                    'Asignado: ',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                  TextSpan(
-                                    text: donacion.albergue.telefono,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.black),
+                                  Icon(
+                                    donacion.asignado
+                                        ? Icons.check
+                                        : Icons.close,
+                                    color: donacion.asignado
+                                        ? Colors.green
+                                        : Colors.red,
                                   ),
                                 ],
                               ),
-                            ),
-                            RichText(
-                              text: TextSpan(
+                              Row(
                                 children: [
-                                  TextSpan(
-                                    text: 'Email: ',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
+                                  Text(
+                                    'Recojo: ',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                  TextSpan(
-                                    text: donacion.albergue.email,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.black),
+                                  Icon(
+                                    donacion.recojo
+                                        ? Icons.check
+                                        : Icons.close,
+                                    color: donacion.recojo
+                                        ? Colors.green
+                                        : Colors.red,
                                   ),
                                 ],
                               ),
-                            ),
-                            RichText(
-                              text: TextSpan(
+                              Row(
                                 children: [
-                                  TextSpan(
-                                    text: 'Capacidad: ',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
+                                  Text(
+                                    'Entregado: ',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                  TextSpan(
-                                    text: '${donacion.albergue.capacidad}',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.black),
+                                  Icon(
+                                    donacion.entregado
+                                        ? Icons.check
+                                        : Icons.close,
+                                    color: donacion.entregado
+                                        ? Colors.green
+                                        : Colors.red,
                                   ),
                                 ],
                               ),
-                            ),
-                            RichText(
-                              text: TextSpan(
+                              Row(
                                 children: [
-                                  TextSpan(
-                                    text: 'Descripcion: ',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
+                                  Text(
+                                    'Recibido: ',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                  TextSpan(
-                                    text: donacion.albergue.descripcion,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.black),
+                                  Icon(
+                                    donacion.recibido
+                                        ? Icons.check
+                                        : Icons.close,
+                                    color: donacion.recibido
+                                        ? Colors.green
+                                        : Colors.red,
                                   ),
                                 ],
                               ),
-                            ),
-                            Divider(),
-                            const SizedBox(height: 16.0),
-                            /*Text(
-                                'Beneficiario: ${donacion.beneficiario.nombre}'),
-                            Text(
-                                'Email: ${donacion.beneficiario.correoElectronico}'),
-                            Text('Teléfono: ${donacion.beneficiario.telefono}'),
-                            const SizedBox(height: 16.0),
-                            Divider(),*/
-                            Row(
-                              children: [
-                                Text(
-                                  'Aceptado: ',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                Icon(
-                                  donacion.aceptado ? Icons.check : Icons.close,
-                                  color: donacion.aceptado
-                                      ? Colors.green
-                                      : Colors.red,
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  'Asignado: ',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                Icon(
-                                  donacion.asignado ? Icons.check : Icons.close,
-                                  color: donacion.asignado
-                                      ? Colors.green
-                                      : Colors.red,
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  'Recojo: ',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                Icon(
-                                  donacion.recojo ? Icons.check : Icons.close,
-                                  color: donacion.recojo
-                                      ? Colors.green
-                                      : Colors.red,
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  'Entregado: ',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                Icon(
-                                  donacion.entregado != null
-                                      ? Icons.check
-                                      : Icons.close,
-                                  color: donacion.entregado != null
-                                      ? Colors.green
-                                      : Colors.red,
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  'Recibido: ',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                Icon(
-                                  donacion.recibido != null
-                                      ? Icons.check
-                                      : Icons.close,
-                                  color: donacion.recibido != null
-                                      ? Colors.green
-                                      : Colors.red,
-                                ),
-                              ],
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         actions: [
                           TextButton(
