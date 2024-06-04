@@ -5,6 +5,7 @@ class Donacion {
   final int id;
   final Albergue albergue;
   final Beneficiario beneficiario;
+  //final Voluntario voluntario;
   final bool aceptado;
   final bool asignado;
   final bool recojo;
@@ -27,6 +28,7 @@ class Donacion {
       id: json['id'],
       albergue: Albergue.fromJson(json['albergue']),
       beneficiario: Beneficiario.fromJson(json['beneficiario']),
+      //voluntario: Voluntario.fromJson(json['voluntario']),
       aceptado: json['aceptado'],
       asignado: json['asignado'],
       recojo: json['recojo'],

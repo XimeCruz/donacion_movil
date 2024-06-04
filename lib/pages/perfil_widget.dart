@@ -120,6 +120,42 @@ class PerfilWidget extends StatelessWidget {
                             double.infinity, 50), // Botón de ancho completo
                       ),
                     ),
+                    SizedBox(height: 32),
+                    Text(
+                      'Cerrar sesión',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      'Puedes entrar con otra cuenta si deseas',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Acción para cambiar contraseña
+                        Navigator.pushNamed(context, '/inicio-sesion');
+                      },
+                      child: Text(
+                        'Cerrar sesión',
+                        style: TextStyle(
+                            color: Colors.white), // Color de texto blanco
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF4DB051), // Color verde
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        minimumSize: Size(
+                            double.infinity, 50), // Botón de ancho completo
+                      ),
+                    ),
                   ],
                 ),
               ),

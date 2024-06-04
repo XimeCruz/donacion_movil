@@ -1,6 +1,6 @@
 
 import 'package:donacion/pages/albergues_widget.dart';
-import 'package:donacion/pages/donaciones_widget.dart';
+import 'package:donacion/pages/donaciones_disponibles_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'lista_notificacion_widget.dart';
@@ -18,7 +18,7 @@ class _MainVolunScreenState extends State<MainVolunScreen> {
 
   final List<Widget> _screens = [
     AlberguesWidget(),
-    DonacionesWidget(),
+    DonacionesDisponiblesWidget(),
     ListaNotificacionesWidget(),
     PerfilWidget(),
   ];

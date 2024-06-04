@@ -1,40 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../components/notificacion_item.dart';
+import '../components/donacion_item.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../modelos/notificacion.dart';
+import '../modelos/donacionResponse.dart';
 import '../globals.dart' as globals;
 
-class ListaNotificacionesWidget extends StatefulWidget {
-  const ListaNotificacionesWidget({Key? key}) : super(key: key);
+class DonacionesDisponiblesWidget extends StatefulWidget {
+
+  final userId = Hive.box('myBox').get('user_id');
+
+  DonacionesDisponiblesWidget({Key? key}) : super(key: key);
 
   @override
-  _ListaNotificacionesWidgetState createState() => _ListaNotificacionesWidgetState();
+  _DonacionesWidgetState createState() => _DonacionesWidgetState();
 }
 
-class _ListaNotificacionesWidgetState extends State<ListaNotificacionesWidget> {
-  List<Notificacion> notificaciones = [];
+class _DonacionesWidgetState extends State<DonacionesDisponiblesWidget> {
+  List<Donacion> donaciones = [];
   bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    fetchNotificaciones();
+    fetchDonaciones();
   }
 
-  Future<void> fetchNotificaciones() async {
+  Future<void> fetchDonaciones() async {
     try {
-      final response = await http.get(Uri.parse('${globals.globalUrl}/solicitud/ver-notificaciones'));
+      final response = await http.get(Uri.parse('${globals.globalUrl}/solicitud/lista-donacion-pedida'));
 
       if (response.statusCode == 200) {
         final List<dynamic> jsonData = json.decode(response.body);
         setState(() {
-          notificaciones = jsonData.map((json) => Notificacion.fromJson(json)).toList();
+          donaciones = jsonData.map((json) => Donacion.fromJson(json)).toList();
           isLoading = false;
         });
       } else {
-        throw Exception('Failed to load notificaciones');
+        throw Exception('Failed to load donaciones');
       }
     } catch (e) {
       print(e);
@@ -68,22 +72,32 @@ class _ListaNotificacionesWidgetState extends State<ListaNotificacionesWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Notificaciones',
+                    'Donaciones',
                     style: FlutterFlowTheme.of(context).displaySmall.copyWith(
                           fontFamily: 'Inter',
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w600,
                         ),
                   ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 6.0, 0.0, 0.0),
+                    child: Text(
+                      'Lista de donaciones pedidas',
+                      style: FlutterFlowTheme.of(context).bodyMedium.copyWith(
+                            fontFamily: 'Inter',
+                            letterSpacing: 0.0,
+                          ),
+                    ),
+                  ),
                 ],
               ),
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: notificaciones.length,
+                itemCount: donaciones.length,
                 itemBuilder: (context, index) {
-                  return NotificacionItemWidget(
-                    notificacion: notificaciones[index],
+                  return DonacionItemWidget(
+                    donacion: donaciones[index],
                   );
                 },
               ),
